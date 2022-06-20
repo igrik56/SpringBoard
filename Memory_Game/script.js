@@ -67,6 +67,24 @@ const gameBoard = document.querySelector('#game');
 let cards = document.querySelector('#game').children;
 startBtn = document.querySelector("#Start");
 let cardCount = 0;
+recordScore = 10;
+currentScore = 0;
+
+if (localStorage.getItem('BestScore') === undefined || localStorage.getItem('BestScore') === null){
+  document.querySelector('#recordScoreOut').innerHTML = recordScore;
+}
+else{
+  recordScore = parseInt(localStorage.getItem('BestScore'));
+  document.querySelector('#recordScoreOut').innerHTML = recordScore;
+}
+startBtn.onClick = startGame;
+
+function bestScoreCheck(num){
+  let x = parseInt(localStorage.getItem('BestScore'));
+  if(x < num){
+    return x;
+  }
+}
 
 function resetPick(){
   a = undefined;
@@ -88,8 +106,11 @@ function startGame(){
   while(gameBoard.firstChild){
     gameBoard.removeChild(gameBoard.firstChild);
   }
+  currentScore = 0;
   shuffle(COLORS);
   createDivsForColors(shuffledColors);
+  document.querySelector('#currentScoreOut').innerHTML = currentScore;
+  localStorage.setItem('BestScore', recordScore);
 }
 function restartGame(){
   // will be a restart same game function.
@@ -101,23 +122,19 @@ function restartGame(){
       }
     }
     cardCount = 0;
+    currentScore = 0;
+    document.querySelector('#currentScoreOut').innerHTML = currentScore;
   }
-
 
 function handleCardClick(event) {
   // you can use event.target to see which element was clicked
   //console.log("you just clicked", event.target);
+  if(clickCount === 2) return resetPick();
   if(event.target.classList.length !== 2){
-    
-    /*clickCount++;                                 //clickCounter
-    if(clickCount == 2){
-      console.log(`more than 2 clicks`);
-      resetPick();
-    }
-    */
+        
     event.target.classList.add(`${event.target.className}-open`);
     if(a === undefined){  
-      a = event.target.className
+      a = event.target.className;
       a = a.replace(` `,'.');
     }
     else if(b === undefined){
@@ -126,11 +143,14 @@ function handleCardClick(event) {
       //console.log(`${a} ${b}`);
       
       if(a !== b){
+        clickClounter = 2;        
         let timer = setTimeout(() => {
           noMatch(a, b);
           resetPick();
+          currentScore++;
+          document.querySelector('#currentScoreOut').innerHTML = currentScore;
           clearTimeout(timer);     
-        }, 400);
+        }, 150);
       }
       else{
         console.log(`Match!`);
@@ -141,18 +161,27 @@ function handleCardClick(event) {
   }
   if(cardCount == cards.length){
     let wimMsg = setTimeout(() => {
-      alert('Congratz! You won!');
-      startGame();
+      if(currentScore < recordScore){
+        recordScore = currentScore;
+        alert(`Congratz! YOU WON!\nNEW HIGH SCORE: ${recordScore}`);
+        bestScoreCheck(recordScore);
+        localStorage.setItem('BestScore', recordScore);
+      }
+      else{
+        alert(`Congratz! You won!\nYour score is: ${currentScore}\nHighest score is: ${recordScore}`);
+      }
       cardCount = 0;
+      startGame();
       clearInterval(wimMsg);
-    }, 600);
+    }, 500);
   }
 }
-startBtn.onClick = startGame;
+
 
 // when the DOM loads
-document.addEventListener('DOMContentLoaded', function(e){
+//document.addEventListener('DOMContentLoaded', function(e){
   createDivsForColors(shuffledColors);
-});
+ 
+//});
 
 /* */
