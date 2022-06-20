@@ -91,11 +91,17 @@ function startGame(){
   shuffle(COLORS);
   createDivsForColors(shuffledColors);
 }
+function restartGame(){
   // will be a restart same game function.
-  //   if(cards[i].classList.length > 1){
-  //     let x = cards[i].className.indexOf(` `);
-  //     cards[i].className = cards[i].className.slice(0, x);
-  //   }
+  console.log("Restart game");
+  for(let i = 0; i<cards.length; i++){
+    if(cards[i].classList.length > 1){
+        let x = cards[i].className.indexOf(` `);
+        cards[i].className = cards[i].className.slice(0, x);
+      }
+    }
+    cardCount = 0;
+  }
 
 
 function handleCardClick(event) {
@@ -134,9 +140,11 @@ function handleCardClick(event) {
     }
   }
   if(cardCount == cards.length){
-    setTimeout(() => {
+    let wimMsg = setTimeout(() => {
       alert('Congratz! You won!');
       startGame();
+      cardCount = 0;
+      clearInterval(wimMsg);
     }, 600);
   }
 }
