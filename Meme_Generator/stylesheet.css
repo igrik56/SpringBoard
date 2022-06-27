@@ -1,0 +1,81 @@
+body{
+    background-color: rgb(231, 233, 237); 
+}
+h1{
+    font-size: 75px;
+    position: relative;
+    text-align: center;
+}
+h4{
+    position: relative;
+    text-align: right;
+}
+#inputForm{
+    position: relative;
+    text-align: center;
+}
+input{
+    display:block;
+    border: 2px solid tomato;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 30px;
+    text-indent: 15px;
+    font-size: large;
+}
+.meme{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.memeDiv{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+button{
+    width: 100px;
+}
+#topText{
+    position: absolute;
+    top: 25px;
+    left: 100px;
+    -webkit-text-stroke: 2px;
+    -webkit-text-fill-color: whitesmoke;
+    font-size: 40px;
+    word-wrap: break-word;
+    text-align: center;
+    font-family: 'League Gothic', sans-serif;
+}
+#bottomText{
+    position: absolute;
+    bottom: 15px;
+    left: 100px;
+    -webkit-text-stroke: 2px;
+    -webkit-text-fill-color: whitesmoke;
+    /* css is pain */
+    font-size: 40px;
+    word-wrap: break-word;
+    text-align: center;
+    font-family: 'League Gothic', sans-serif;
+}
+h2{
+    margin-left: 15%;
+    font-size: 30px;
+    color: black;
+}/*
+#Gallery{
+    position: absolute;
+    width: 100%
+}*/
